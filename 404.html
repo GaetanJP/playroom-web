@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playroom - Party Games</title>
+    <meta name="theme-color" content="#16131F">
+    <meta name="robots" content="noindex">
+    <script>
+        // GitHub Pages serves this file for every unknown path, at any depth, so relative URLs
+        // would break. Work out the site root (the folder above /join/, or above this missing
+        // page) and use it as <base>. Invite links from the app look like <root>/join/ABCDE.
+        (function () {
+            var path = location.pathname;
+            var m = path.match(/^(.*?\/)join\/([^/]*)\/?$/i);
+            var root;
+            if (m) {
+                root = m[1];
+            } else if (/\.github\.io$/i.test(location.hostname)) {
+                var first = path.split('/')[1];
+                root = first ? '/' + first + '/' : '/';
+            } else {
+                root = '/';
+            }
+            window.__PLAYROOM_JOIN__ = m ? decodeURIComponent(m[2]) : null;
+            document.write('<base href="' + root.replace(/"/g, '') + '">');
+        })();
+    </script>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="nav" id="nav">
+        <div class="wrap nav-inner">
+            <a class="brand" href="./" aria-label="Playroom home">
+                <img src="assets/mark.png" alt="" width="34" height="34">
+                Playroom
+            </a>
+            <a class="btn btn-ghost btn-sm nav-cta" href="./">Home</a>
+        </div>
+    </header>
+
+    <main class="join">
+        <!-- Invite link: /join/ABCDE -->
+        <div class="join-card" id="joinCard" hidden>
+            <img class="mark" src="assets/mark.png" alt="" width="88" height="88">
+            <h1>You're invited to a room</h1>
+            <p>Open Playroom and join with this code.</p>
+            <div class="tiles" id="joinTiles" aria-label=""></div>
+            <div class="join-actions">
+                <a class="btn btn-primary" id="openApp" href="#">Open in Playroom</a>
+                <a class="store-badge" href="#" data-app-store data-join-store aria-label="Get Playroom">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg>
+                    <span class="store-badge-text"><small data-store-label>Coming soon on the</small><strong>App Store</strong></span>
+                </a>
+            </div>
+            <p class="signup-fine" style="margin-top: 24px;">Don't have the app yet? Get it, tap Join, and type the code.</p>
+        </div>
+
+        <!-- Anything else -->
+        <div class="join-card" id="notFound" hidden>
+            <img class="mark" src="assets/mark.png" alt="" width="88" height="88">
+            <h1>This room is empty</h1>
+            <p>The page you're looking for isn't here.</p>
+            <div class="join-actions">
+                <a class="btn btn-primary" href="./">Back to Playroom</a>
+                <a class="btn btn-ghost" href="support/">Get help</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="config.js"></script>
+    <script>
+        (function () {
+            // Codes are five consonants (same rule as the app's CODE_PATTERN).
+            var raw = window.__PLAYROOM_JOIN__;
+            var code = raw ? raw.toUpperCase().replace(/[^A-Z]/g, '') : '';
+            var valid = /^[BCDFGHJKLMNPQRSTVWXZ]{5}$/.test(code);
+            if (!valid) {
+                document.getElementById('notFound').hidden = false;
+                if (raw !== null) document.querySelector('#notFound h1').textContent = 'That invite link looks broken';
+                return;
+            }
+            document.title = 'Join room ' + code + ' · Playroom';
+            var tiles = document.getElementById('joinTiles');
+            tiles.setAttribute('aria-label', 'Room code ' + code.split('').join(' '));
+            code.split('').forEach(function (ch) {
+                var t = document.createElement('span');
+                t.className = 'tile';
+                t.setAttribute('aria-hidden', 'true');
+                t.textContent = ch;
+                tiles.appendChild(t);
+            });
+            // The app registers the playroom:// scheme and routes /join/<code>.
+            document.getElementById('openApp').href = 'playroom://join/' + code;
+            // Until the App Store URL exists, the badge points to the updates form.
+            document.querySelector('[data-join-store]').href = './#updates';
+            document.getElementById('joinCard').hidden = false;
+        })();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
