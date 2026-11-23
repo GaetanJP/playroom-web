@@ -75,7 +75,7 @@ the sheet. Submitting the same address again must not add a second row.
 
 ## Deploy (GitHub Pages)
 
-1. Create a repo (for example `ByldForFun/playroom-web`, next to `book-web`) and push `main`.
+1. Create a repo (`GaetanJP/playroom-web`, next to the `playroom` app repo) and push `main`.
 2. Repo **Settings → Pages → Build and deployment**: Source **Deploy from a branch**,
    Branch **main**, folder **/ (root)**. Save.
 3. After a minute the site is at `https://<owner>.github.io/playroom-web/`.
@@ -88,16 +88,16 @@ Everything uses relative paths, so the site works both at a sub-path and on a cu
 
 ## URLs the app and App Store Connect need
 
-With GitHub Pages under `ByldForFun` (replace the base if you use another owner or a custom
+With GitHub Pages under `GaetanJP` (replace the base if you use another owner or a custom
 domain):
 
 | Where | Value |
 | --- | --- |
-| App Store Connect → Privacy Policy URL | `https://byldforfun.github.io/playroom-web/privacy/` |
-| App Store Connect → Support URL | `https://byldforfun.github.io/playroom-web/support/` |
-| App Store Connect → Marketing URL | `https://byldforfun.github.io/playroom-web/` |
-| App: `EXPO_PUBLIC_PRIVACY_URL` | `https://byldforfun.github.io/playroom-web/privacy/` |
-| App: `EXPO_PUBLIC_INVITE_BASE_URL` | `https://byldforfun.github.io/playroom-web` |
+| App Store Connect → Privacy Policy URL | `https://gaetanjp.github.io/playroom-web/privacy/` |
+| App Store Connect → Support URL | `https://gaetanjp.github.io/playroom-web/support/` |
+| App Store Connect → Marketing URL | `https://gaetanjp.github.io/playroom-web/` |
+| App: `EXPO_PUBLIC_PRIVACY_URL` | `https://gaetanjp.github.io/playroom-web/privacy/` |
+| App: `EXPO_PUBLIC_INVITE_BASE_URL` | `https://gaetanjp.github.io/playroom-web` |
 
 The app builds invite links as `${EXPO_PUBLIC_INVITE_BASE_URL}/join/ABCDE`. On this site
 that URL opens the invite page: it shows the code, an **Open in Playroom** button
